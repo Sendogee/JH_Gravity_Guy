@@ -1,7 +1,12 @@
+function createGuy2 () {
+    guy2 = sprites.create(assets.image`guy2`, SpriteKind.Player)
+    guy2.setPosition(100, 100)
+    guy2ya = 300
+    guy2.ay = guy2ya
+}
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(gameBegun)) {
-        gameBegin = true
-        gameBegun = true
+        startscreenFinished = true
     }
 })
 // namespace projectImages {
@@ -14,19 +19,184 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 // 
 // scene.setBackgroundImage(projectImages.ggtitlescreen);
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    button1.setImage(assets.image`PLAYERBUTTON1pressed`)
-    button2.setImage(assets.image`PLAYER2BUTTON`)
-    check2Player = false
+    if (!(gameBegun)) {
+        button1.setImage(assets.image`PLAYERBUTTON1pressed`)
+        button2.setImage(assets.image`PLAYER2BUTTON`)
+        check2Player = false
+    }
+})
+function createGuy1 () {
+    startscreenFinished = false
+    guy1 = sprites.create(assets.image`guy1`, SpriteKind.Player)
+    scene.cameraFollowSprite(guy1)
+    guy1.setPosition(60, 100)
+    guy1ya = 300
+    guy1.ay = guy1ya
+}
+info.onCountdownEnd(function () {
+    gameBegun = false
+    animation.runImageAnimation(
+    guy2,
+    [img`
+        . . . . . f f f f f . . . . . . 
+        . . f f f f 1 1 1 f f . . . . . 
+        . . f f f 1 1 1 1 1 f f . . . . 
+        . . . . f f 1 1 1 1 1 f f f . . 
+        . . . . . f f f 1 1 1 f f f f . 
+        . . . . . . . f f f f f 2 2 f f 
+        . . . . f f f f 2 2 2 2 2 2 2 f 
+        . . . f f 5 5 f f f 1 1 1 f f f 
+        . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+        . f f 5 5 5 f f 2 2 f f 5 5 f f 
+        . f f 5 f f 2 2 2 2 f f f f f . 
+        . . f f f 2 2 2 f f f . . . . . 
+        . . . f 2 2 f 2 f 1 f . . . . . 
+        . . f 2 2 f f 2 f 1 1 f . . . . 
+        . . f 2 2 f 2 2 f f f f . . . . 
+        . . f f f f f f f . . . . . . . 
+        `,img`
+        . . . . . f f f f f . . . . . . 
+        . . f f f f 1 1 1 f f . . . . . 
+        . . f f f 1 1 1 1 1 f f . . . . 
+        . . . . f f 1 1 1 1 1 f f f . . 
+        . . . . . f f f 1 1 1 f f f f . 
+        . . . . . . . f f f f f 2 2 f f 
+        . . . . f f f f 2 2 2 2 2 2 2 f 
+        . . . f f 5 5 f f f 1 1 1 f f f 
+        . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+        . f f 5 5 5 f f 2 2 f f 5 5 f f 
+        . f f 5 f f 2 2 2 2 f f f f f . 
+        . . f f f 2 2 2 f f f . . . . . 
+        . . . f 2 2 f 2 1 1 f . . . . . 
+        . . . f 2 f f 2 1 1 1 f . . . . 
+        . . . f 2 f . f 2 2 f f . . . . 
+        . . . . f f . f f f f . . . . . 
+        `,img`
+        . . . . . f f f f f . . . . . . 
+        . . f f f f 1 1 1 f f . . . . . 
+        . . f f f 1 1 1 1 1 f f . . . . 
+        . . . . f f 1 1 1 1 1 f f f . . 
+        . . . . . f f f 1 1 1 f f f f . 
+        . . . . . . . f f f f f 2 2 f f 
+        . . . . f f f f 2 2 2 2 2 2 2 f 
+        . . . f f 5 5 f f f 1 1 1 f f f 
+        . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+        . f f 5 5 5 f f 2 2 f f 5 5 f f 
+        . f f 5 f f 2 f f f f . f f f . 
+        . . f f f 2 2 f 1 1 f . . . . . 
+        . . . f 2 2 2 f 1 1 1 f . . . . 
+        . . . f 2 2 f f f f f f . . . . 
+        . . . f 2 2 f f f 2 2 f f . . . 
+        . . . f f f f f f f f f f . . . 
+        `,img`
+        . . . . . f f f f f . . . . . . 
+        . . f f f f 1 1 1 f f . . . . . 
+        . . f f f 1 1 1 1 1 f f . . . . 
+        . . . . f f 1 1 1 1 1 f f f . . 
+        . . . . . f f f 1 1 1 f f f f . 
+        . . . . . . . f f f f f 2 2 f f 
+        . . . . f f f f 2 2 2 2 2 2 2 f 
+        . . . f f 5 5 f f f 1 1 1 f f f 
+        . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+        . f f 5 5 5 f f 2 2 f f 5 5 f f 
+        . f f 5 f f 2 2 2 2 f f f f f . 
+        . . f f f 2 2 2 f f f . . . . . 
+        . . . f 2 2 f 2 f 1 f . . . . . 
+        . . f 2 2 f f 2 f 1 1 f . . . . 
+        . . f 2 2 f 2 2 f f f f . . . . 
+        . . f f f f f f f . . . . . . . 
+        `],
+    100,
+    true
+    )
+    animation.runImageAnimation(
+    guy1,
+    [img`
+        . . . . . f f f f f . . . . . . 
+        . . f f f f 1 1 1 f f . . . . . 
+        . . f f f 1 1 1 1 1 f f . . . . 
+        . . . . f f 1 1 1 1 1 f f f . . 
+        . . . . . f f f 1 1 1 f f f f . 
+        . . . . . . . f f f f f 8 8 f f 
+        . . . . f f f f 8 8 8 8 8 8 8 f 
+        . . . f f 5 5 f f f 1 1 1 f f f 
+        . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+        . f f 5 5 5 f f 8 8 f f 5 5 f f 
+        . f f 5 f f 8 8 8 8 f f f f f . 
+        . . f f f 8 8 8 f f f . . . . . 
+        . . . f 8 8 f 8 f 1 f . . . . . 
+        . . f 8 8 f f 8 f 1 1 f . . . . 
+        . . f 8 8 f 8 8 f f f f . . . . 
+        . . f f f f f f f . . . . . . . 
+        `,img`
+        . . . . . f f f f f . . . . . . 
+        . . f f f f 1 1 1 f f . . . . . 
+        . . f f f 1 1 1 1 1 f f . . . . 
+        . . . . f f 1 1 1 1 1 f f f . . 
+        . . . . . f f f 1 1 1 f f f f . 
+        . . . . . . . f f f f f 8 8 f f 
+        . . . . f f f f 8 8 8 8 8 8 8 f 
+        . . . f f 5 5 f f f 1 1 1 f f f 
+        . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+        . f f 5 5 5 f f 8 8 f f 5 5 f f 
+        . f f 5 f f 8 8 8 8 f f f f f . 
+        . . f f f 8 8 8 f f f . . . . . 
+        . . . f 8 8 f 8 1 1 f . . . . . 
+        . . . f 8 f f 8 1 1 1 f . . . . 
+        . . . f 8 f . f 8 8 f f . . . . 
+        . . . . f f . f f f f . . . . . 
+        `,img`
+        . . . . . f f f f f . . . . . . 
+        . . f f f f 1 1 1 f f . . . . . 
+        . . f f f 1 1 1 1 1 f f . . . . 
+        . . . . f f 1 1 1 1 1 f f f . . 
+        . . . . . f f f 1 1 1 f f f f . 
+        . . . . . . . f f f f f 8 8 f f 
+        . . . . f f f f 8 8 8 8 8 8 8 f 
+        . . . f f 5 5 f f f 1 1 1 f f f 
+        . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+        . f f 5 5 5 f f 8 8 f f 5 5 f f 
+        . f f 5 f f 8 f f f f . f f f . 
+        . . f f f 8 8 f 1 1 f . . . . . 
+        . . . f 8 8 8 f 1 1 1 f . . . . 
+        . . . f 8 8 f f f f f f . . . . 
+        . . . f 8 8 f f f 8 8 f f . . . 
+        . . . f f f f f f f f f f . . . 
+        `,img`
+        . . . . . f f f f f . . . . . . 
+        . . f f f f 1 1 1 f f . . . . . 
+        . . f f f 1 1 1 1 1 f f . . . . 
+        . . . . f f 1 1 1 1 1 f f f . . 
+        . . . . . f f f 1 1 1 f f f f . 
+        . . . . . . . f f f f f 8 8 f f 
+        . . . . f f f f 8 8 8 8 8 8 8 f 
+        . . . f f 5 5 f f f 1 1 1 f f f 
+        . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+        . f f 5 5 5 f f 8 8 f f 5 5 f f 
+        . f f 5 f f 8 8 8 8 f f f f f . 
+        . . f f f 8 8 8 f f f . . . . . 
+        . . . f 8 8 f 8 f 1 f . . . . . 
+        . . f 8 8 f f 8 f 1 1 f . . . . 
+        . . f 8 8 f 8 8 f f f f . . . . 
+        . . f f f f f f f . . . . . . . 
+        `],
+    100,
+    true
+    )
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    button1.setImage(assets.image`PLAYERBUTTON1`)
-    button2.setImage(assets.image`PLAYER2BUTTONpressed`)
-    check2Player = true
+    if (!(gameBegun)) {
+        button1.setImage(assets.image`PLAYERBUTTON1`)
+        button2.setImage(assets.image`PLAYER2BUTTONpressed`)
+        check2Player = true
+    }
 })
-let guy2: Sprite = null
+let guy1ya = 0
 let guy1: Sprite = null
+let guy2ya = 0
+let guy2: Sprite = null
 let gameBegun = false
-let gameBegin = false
+let startscreenFinished = false
 let check2Player = false
 let button2: Sprite = null
 let button1: Sprite = null
@@ -157,10 +327,10 @@ button1.setPosition(60, 100)
 button2 = sprites.create(assets.image`PLAYER2BUTTON`, SpriteKind.Player)
 button2.setPosition(100, 100)
 check2Player = false
-gameBegin = false
+startscreenFinished = false
 gameBegun = false
 game.onUpdate(function () {
-    if (gameBegin) {
+    while (startscreenFinished) {
         scene.setBackgroundImage(img`
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -274,59 +444,24 @@ game.onUpdate(function () {
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
-            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
-            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
-            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
-            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
-            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
-            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
-            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
-            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
             `)
         tiles.setTilemap(tilemap`level1`)
         button1.destroy()
         button2.destroy()
-        gameBegin = false
-        guy1 = sprites.create(img`
-            . . . . . f f f f f . . . . . . 
-            . . f f f f 1 1 1 f f . . . . . 
-            . . f f f 1 1 1 1 1 f f . . . . 
-            . . . . f f 1 1 1 1 1 f f f . . 
-            . . . . . f f f 1 1 1 f f f f . 
-            . . . . . . . f f f f f 8 8 f f 
-            . . . . f f f f 8 8 8 8 8 8 8 f 
-            . . . f f 5 5 f f f 1 1 1 f f f 
-            . . f f 5 5 5 f 8 f f 1 f 5 5 f 
-            . f f 5 5 5 f f 8 8 f f 5 5 f f 
-            . f f 5 f f 8 8 8 8 f f f f f . 
-            . . f f f 8 8 8 8 f f f . . . . 
-            . . . f 8 8 8 8 8 f 1 f f . . . 
-            . . f 8 8 8 8 8 f f 1 1 f . . . 
-            . f f 8 f f f 8 f f f f f . . . 
-            . f f f f . f f f . . . . . . . 
-            `, SpriteKind.Player)
-        guy1.setPosition(60, 100)
-        controller.moveSprite(guy1)
+        createGuy1()
         if (check2Player) {
-            guy2 = sprites.create(img`
-                . . . . . f f f f f . . . . . . 
-                . . f f f f 1 1 1 f f . . . . . 
-                . . f f f 1 1 1 1 1 f f . . . . 
-                . . . . f f 1 1 1 1 1 f f f . . 
-                . . . . . f f f 1 1 1 f f f f . 
-                . . . . . . . f f f f f 2 2 f f 
-                . . . . f f f f 2 2 2 2 2 2 2 f 
-                . . . f f 5 5 f f f 1 1 1 f f f 
-                . . f f 5 5 5 f 2 f f 1 f 5 5 f 
-                . f f 5 5 5 f f 2 2 f f 5 5 f f 
-                . f f 5 f f 2 2 2 2 f f f f f . 
-                . . f f f 2 2 2 2 f f f . . . . 
-                . . . f 2 2 2 2 2 f 1 f f . . . 
-                . . f 2 2 2 2 2 f f 1 1 f . . . 
-                . f f 2 f f f 2 f f f f f . . . 
-                . f f f f . f f f . . . . . . . 
-                `, SpriteKind.Player)
-            guy2.setPosition(100, 100)
+            createGuy2()
         }
+        startscreenFinished = false
+        game.splash("")
+        info.startCountdown(5)
     }
 })

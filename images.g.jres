@@ -19,6 +19,16 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "PLAYER2BUTTONpressed"
     },
+    "!w!LZ2Fx+V@C$(O_XTNd": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAADwDwD/8A8AAP//8P/wDwDwX/Uv8vD/AP9V/yL///EPX1UvIg8fEQ9f9SIi/x8R////IiLyHxHx8iIi8v//EfHyL/L/D/Af8RL//xEPAP//EvH/Hw8A8C8SXw//DwDwL/JVDwAAAAD/8vUPAAAAAPD//wAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "guy2"
+    },
+    "dfMdeG0Gb8_p_JHyu(E:": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAADwDwD/8A8AAP//8P/wDwDwX/WP+PD/AP9V/4j///EPX1WPiA8fEQ9f9YiI/x8R////iIj4HxHx+IiI+P//EfH4j/j/D/Af8Rj//xEPAP//GPH/Hw8A8I8YXw//DwDwj/hVDwAAAAD/+PUPAAAAAPD//wAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "guy1"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",
