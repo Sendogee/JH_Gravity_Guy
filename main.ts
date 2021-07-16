@@ -1,14 +1,14 @@
 function createMap () {
     scene.setTileMap(img`
         22222222222222222222f222222f2f2f22222222222222222222222222222222
-        8888888fff8f888888f888ffff8888888fffffffff88ffff8888888888888888
-        8ffff8888888fff88f88888888f8f8f8f8888888888888888888888888888fff
-        88888888888888888888f888888888888888888888888888fffff8888fff8883
-        8ffff88888888888888f8888888888888fffffffff8888888888888888888883
-        88888888888888888888f88888888888888888888888888888888ffff8888fff
-        8ffff8888888fff88f88888888f8f8f8f8888888888888888888888888888888
-        8888888fff8f888888f888ffff8888888fffffffff8888888888888888888888
-        22222222222222222222f222222f2f2f22222222222222222222222222222222
+        .......fff.f......f...ffff.......fffffffff..ffff................
+        .ffff.......fff..f........f.f.f.f............................fff
+        ....................f...........................fffff....fff...3
+        .ffff..............f.............fffffffff.....................3
+        ....................f................................ffff....fff
+        .ffff.......fff..f........f.f.f.f...............................
+        .......fff.f......f...ffff.......fffffffff....ffff..............
+        22222222222222222222f222222f2f2f222222222222222222222ffff2222222
         `)
     scene.setBackgroundImage(img`
         9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -150,7 +150,7 @@ function createMap () {
         f f f f f f f f f f f f f f f f 
         f f f f f f f f f f f f f f f f 
         `, true)
-    scene.setTile(8, img`
+    scene.setTile(2, img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -198,9 +198,159 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         if (upOrDown1) {
             guy1yv = guy1yv * -1
             upOrDown1 = false
+            animation.stopAnimation(animation.AnimationTypes.All, guy1)
+            animation.runImageAnimation(
+            guy1,
+            [img`
+                . . f f f f f f f . . . . . . . 
+                . . f 8 8 f 8 8 f f f f . . . . 
+                . . f 8 8 f f 8 f 1 1 f . . . . 
+                . . . f 8 8 f 8 f 1 f . . . . . 
+                . . f f f 8 8 8 f f f . . . . . 
+                . f f 5 f f 8 8 8 8 f f f f f . 
+                . f f 5 5 5 f f 8 8 f f 5 5 f f 
+                . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . . . f f f f 8 8 8 8 8 8 8 f 
+                . . . . . . . f f f f f 8 8 f f 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . . . . f f f f f . . . . . . 
+                `,img`
+                . . . . f f . f f f f . . . . . 
+                . . . f 8 f . f 8 8 f f . . . . 
+                . . . f 8 f f 8 1 1 1 f . . . . 
+                . . . f 8 8 f 8 1 1 f . . . . . 
+                . . f f f 8 8 8 f f f . . . . . 
+                . f f 5 f f 8 8 8 8 f f f f f . 
+                . f f 5 5 5 f f 8 8 f f 5 5 f f 
+                . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . . . f f f f 8 8 8 8 8 8 8 f 
+                . . . . . . . f f f f f 8 8 f f 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . . . . f f f f f . . . . . . 
+                `,img`
+                . . . f f f f f f f f f f . . . 
+                . . . f 8 8 f f f 8 8 f f . . . 
+                . . . f 8 8 f f f f f f . . . . 
+                . . . f 8 8 8 f 1 1 1 f . . . . 
+                . . f f f 8 8 f 1 1 f . . . . . 
+                . f f 5 f f 8 f f f f . f f f . 
+                . f f 5 5 5 f f 8 8 f f 5 5 f f 
+                . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . . . f f f f 8 8 8 8 8 8 8 f 
+                . . . . . . . f f f f f 8 8 f f 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . . . . f f f f f . . . . . . 
+                `,img`
+                . . f f f f f f f . . . . . . . 
+                . . f 8 8 f 8 8 f f f f . . . . 
+                . . f 8 8 f f 8 f 1 1 f . . . . 
+                . . . f 8 8 f 8 f 1 f . . . . . 
+                . . f f f 8 8 8 f f f . . . . . 
+                . f f 5 f f 8 8 8 8 f f f f f . 
+                . f f 5 5 5 f f 8 8 f f 5 5 f f 
+                . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . . . f f f f 8 8 8 8 8 8 8 f 
+                . . . . . . . f f f f f 8 8 f f 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . . . . f f f f f . . . . . . 
+                `],
+            100,
+            true
+            )
         } else {
             guy1yv = guy1yv * -1
             upOrDown1 = true
+            animation.stopAnimation(animation.AnimationTypes.All, guy1)
+            animation.runImageAnimation(
+            guy1,
+            [img`
+                . . . . . f f f f f . . . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . . . . f f f f f 8 8 f f 
+                . . . . f f f f 8 8 8 8 8 8 8 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+                . f f 5 5 5 f f 8 8 f f 5 5 f f 
+                . f f 5 f f 8 8 8 8 f f f f f . 
+                . . f f f 8 8 8 f f f . . . . . 
+                . . . f 8 8 f 8 f 1 f . . . . . 
+                . . f 8 8 f f 8 f 1 1 f . . . . 
+                . . f 8 8 f 8 8 f f f f . . . . 
+                . . f f f f f f f . . . . . . . 
+                `,img`
+                . . . . . f f f f f . . . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . . . . f f f f f 8 8 f f 
+                . . . . f f f f 8 8 8 8 8 8 8 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+                . f f 5 5 5 f f 8 8 f f 5 5 f f 
+                . f f 5 f f 8 8 8 8 f f f f f . 
+                . . f f f 8 8 8 f f f . . . . . 
+                . . . f 8 8 f 8 1 1 f . . . . . 
+                . . . f 8 f f 8 1 1 1 f . . . . 
+                . . . f 8 f . f 8 8 f f . . . . 
+                . . . . f f . f f f f . . . . . 
+                `,img`
+                . . . . . f f f f f . . . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . . . . f f f f f 8 8 f f 
+                . . . . f f f f 8 8 8 8 8 8 8 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+                . f f 5 5 5 f f 8 8 f f 5 5 f f 
+                . f f 5 f f 8 f f f f . f f f . 
+                . . f f f 8 8 f 1 1 f . . . . . 
+                . . . f 8 8 8 f 1 1 1 f . . . . 
+                . . . f 8 8 f f f f f f . . . . 
+                . . . f 8 8 f f f 8 8 f f . . . 
+                . . . f f f f f f f f f f . . . 
+                `,img`
+                . . . . . f f f f f . . . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . . . . f f f f f 8 8 f f 
+                . . . . f f f f 8 8 8 8 8 8 8 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . f f 5 5 5 f 8 f f 1 f 5 5 f 
+                . f f 5 5 5 f f 8 8 f f 5 5 f f 
+                . f f 5 f f 8 8 8 8 f f f f f . 
+                . . f f f 8 8 8 f f f . . . . . 
+                . . . f 8 8 f 8 f 1 f . . . . . 
+                . . f 8 8 f f 8 f 1 1 f . . . . 
+                . . f 8 8 f 8 8 f f f f . . . . 
+                . . f f f f f f f . . . . . . . 
+                `],
+            100,
+            true
+            )
         }
         guy1.vy = guy1yv
         onGround1 = false
@@ -208,13 +358,14 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 function createGuy1 () {
     guy1 = sprites.create(assets.image`guy1`, SpriteKind.Player)
-    scene.cameraFollowSprite(guy1)
     tiles.placeOnTile(guy1, tiles.getTileLocation(1, 3))
     guy1yv = 50
     guy1.vy = guy1yv
 }
 info.onCountdownEnd(function () {
     gameBegun = true
+    onGround1 = true
+    upOrDown1 = true
     animation.runImageAnimation(
     guy1,
     [img`
@@ -289,9 +440,9 @@ info.onCountdownEnd(function () {
     100,
     true
     )
-    onGround1 = true
-    upOrDown1 = true
     if (check2Player) {
+        onGround2 = true
+        upOrDown2 = true
         animation.runImageAnimation(
         guy2,
         [img`
@@ -366,8 +517,6 @@ info.onCountdownEnd(function () {
         100,
         true
         )
-        onGround2 = true
-        upOrDown2 = true
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -379,9 +528,159 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         if (upOrDown2) {
             guy2yv = guy2yv * -1
             upOrDown2 = false
+            animation.stopAnimation(animation.AnimationTypes.All, guy2)
+            animation.runImageAnimation(
+            guy2,
+            [img`
+                . . f f f f f f f . . . . . . . 
+                . . f 2 2 f 2 2 f f f f . . . . 
+                . . f 2 2 f f 2 f 1 1 f . . . . 
+                . . . f 2 2 f 2 f 1 f . . . . . 
+                . . f f f 2 2 2 f f f . . . . . 
+                . f f 5 f f 2 2 2 2 f f f f f . 
+                . f f 5 5 5 f f 2 2 f f 5 5 f f 
+                . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . . . f f f f 2 2 2 2 2 2 2 f 
+                . . . . . . . f f f f f 2 2 f f 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . . . . f f f f f . . . . . . 
+                `,img`
+                . . . . f f . f f f f . . . . . 
+                . . . f 2 f . f 2 2 f f . . . . 
+                . . . f 2 f f 2 1 1 1 f . . . . 
+                . . . f 2 2 f 2 1 1 f . . . . . 
+                . . f f f 2 2 2 f f f . . . . . 
+                . f f 5 f f 2 2 2 2 f f f f f . 
+                . f f 5 5 5 f f 2 2 f f 5 5 f f 
+                . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . . . f f f f 2 2 2 2 2 2 2 f 
+                . . . . . . . f f f f f 2 2 f f 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . . . . f f f f f . . . . . . 
+                `,img`
+                . . . f f f f f f f f f f . . . 
+                . . . f 2 2 f f f 2 2 f f . . . 
+                . . . f 2 2 f f f f f f . . . . 
+                . . . f 2 2 2 f 1 1 1 f . . . . 
+                . . f f f 2 2 f 1 1 f . . . . . 
+                . f f 5 f f 2 f f f f . f f f . 
+                . f f 5 5 5 f f 2 2 f f 5 5 f f 
+                . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . . . f f f f 2 2 2 2 2 2 2 f 
+                . . . . . . . f f f f f 2 2 f f 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . . . . f f f f f . . . . . . 
+                `,img`
+                . . f f f f f f f . . . . . . . 
+                . . f 2 2 f 2 2 f f f f . . . . 
+                . . f 2 2 f f 2 f 1 1 f . . . . 
+                . . . f 2 2 f 2 f 1 f . . . . . 
+                . . f f f 2 2 2 f f f . . . . . 
+                . f f 5 f f 2 2 2 2 f f f f f . 
+                . f f 5 5 5 f f 2 2 f f 5 5 f f 
+                . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . . . f f f f 2 2 2 2 2 2 2 f 
+                . . . . . . . f f f f f 2 2 f f 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . . . . f f f f f . . . . . . 
+                `],
+            100,
+            true
+            )
         } else {
             guy2yv = guy2yv * -1
             upOrDown2 = true
+            animation.stopAnimation(animation.AnimationTypes.All, guy2)
+            animation.runImageAnimation(
+            guy2,
+            [img`
+                . . . . . f f f f f . . . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . . . . f f f f f 2 2 f f 
+                . . . . f f f f 2 2 2 2 2 2 2 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+                . f f 5 5 5 f f 2 2 f f 5 5 f f 
+                . f f 5 f f 2 2 2 2 f f f f f . 
+                . . f f f 2 2 2 f f f . . . . . 
+                . . . f 2 2 f 2 f 1 f . . . . . 
+                . . f 2 2 f f 2 f 1 1 f . . . . 
+                . . f 2 2 f 2 2 f f f f . . . . 
+                . . f f f f f f f . . . . . . . 
+                `,img`
+                . . . . . f f f f f . . . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . . . . f f f f f 2 2 f f 
+                . . . . f f f f 2 2 2 2 2 2 2 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+                . f f 5 5 5 f f 2 2 f f 5 5 f f 
+                . f f 5 f f 2 2 2 2 f f f f f . 
+                . . f f f 2 2 2 f f f . . . . . 
+                . . . f 2 2 f 2 1 1 f . . . . . 
+                . . . f 2 f f 2 1 1 1 f . . . . 
+                . . . f 2 f . f 2 2 f f . . . . 
+                . . . . f f . f f f f . . . . . 
+                `,img`
+                . . . . . f f f f f . . . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . . . . f f f f f 2 2 f f 
+                . . . . f f f f 2 2 2 2 2 2 2 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+                . f f 5 5 5 f f 2 2 f f 5 5 f f 
+                . f f 5 f f 2 f f f f . f f f . 
+                . . f f f 2 2 f 1 1 f . . . . . 
+                . . . f 2 2 2 f 1 1 1 f . . . . 
+                . . . f 2 2 f f f f f f . . . . 
+                . . . f 2 2 f f f 2 2 f f . . . 
+                . . . f f f f f f f f f f . . . 
+                `,img`
+                . . . . . f f f f f . . . . . . 
+                . . f f f f 1 1 1 f f . . . . . 
+                . . f f f 1 1 1 1 1 f f . . . . 
+                . . . . f f 1 1 1 1 1 f f f . . 
+                . . . . . f f f 1 1 1 f f f f . 
+                . . . . . . . f f f f f 2 2 f f 
+                . . . . f f f f 2 2 2 2 2 2 2 f 
+                . . . f f 5 5 f f f 1 1 1 f f f 
+                . . f f 5 5 5 f 2 f f 1 f 5 5 f 
+                . f f 5 5 5 f f 2 2 f f 5 5 f f 
+                . f f 5 f f 2 2 2 2 f f f f f . 
+                . . f f f 2 2 2 f f f . . . . . 
+                . . . f 2 2 f 2 f 1 f . . . . . 
+                . . f 2 2 f f 2 f 1 1 f . . . . 
+                . . f 2 2 f 2 2 f f f f . . . . 
+                . . f f f f f f f . . . . . . . 
+                `],
+            100,
+            true
+            )
         }
         guy2.vy = guy2yv
         onGround2 = false
@@ -536,6 +835,7 @@ button2.setPosition(100, 100)
 check2Player = false
 startscreenFinished = false
 gameBegun = false
+let cameraX = 80
 /**
  * upOrDown
  * 
@@ -549,6 +849,7 @@ game.onUpdate(function () {
         button1.destroy()
         button2.destroy()
         createGuy1()
+        scene.centerCameraAt(80, 72)
         _2startscreenFinished = true
         if (check2Player) {
             createGuy2()
@@ -558,6 +859,21 @@ game.onUpdate(function () {
             game.splash("Blue -> LeftArrow")
             info.startCountdown(5)
         }
+    }
+})
+game.onUpdate(function () {
+    if (gameBegun && check2Player) {
+        if (guy2.x > guy1.x) {
+            scene.cameraFollowSprite(guy2)
+        } else if (guy2.x < guy1.x) {
+            scene.cameraFollowSprite(guy1)
+        } else {
+            scene.centerCameraAt(cameraX, 72)
+            cameraX += 1
+        }
+    }
+    if (!(check2Player)) {
+        scene.cameraFollowSprite(guy1)
     }
 })
 game.onUpdate(function () {
@@ -581,6 +897,18 @@ game.onUpdate(function () {
         guy1.vx = 50
         if (check2Player) {
             guy2.vx = 50
+        }
+    }
+})
+game.onUpdate(function () {
+    if (gameBegun) {
+        if (guy1.y < 9 || guy1.y > 135) {
+            guy1.destroy(effects.disintegrate, 200)
+        }
+        if (check2Player) {
+            if (guy2.y < 9 || guy2.y > 135) {
+                guy2.destroy(effects.disintegrate, 200)
+            }
         }
     }
 })
