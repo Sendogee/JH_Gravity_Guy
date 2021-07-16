@@ -133,22 +133,22 @@ function createMap () {
         7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
         `)
     scene.setTile(15, img`
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
+        6 6 6 8 8 6 6 6 6 6 6 8 8 6 6 6 
+        7 7 7 7 8 7 7 7 7 7 7 7 8 7 7 7 
+        7 7 7 6 8 7 7 7 7 7 7 7 8 7 7 7 
+        6 6 6 6 8 6 6 6 6 6 6 6 8 8 6 6 
+        8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 
+        8 6 7 7 7 7 7 6 8 6 7 7 7 7 7 6 
+        8 8 6 6 6 6 6 6 8 8 6 6 6 6 6 6 
+        8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 
+        6 6 6 8 6 6 6 6 6 6 6 6 8 6 6 6 
+        6 6 6 8 8 6 6 6 6 6 6 6 8 6 6 6 
+        8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 
+        8 6 6 6 6 6 6 8 8 6 6 6 6 6 6 8 
+        8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 
+        6 6 8 8 6 6 6 6 6 6 8 8 6 6 6 6 
+        8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 
+        8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 
         `, true)
     scene.setTile(2, img`
         . . . . . . . . . . . . . . . . 
@@ -707,6 +707,15 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
     sprite.vy = 0
     otherSprite.vy = 0
+    if (gameBegun) {
+        if (upOrDown1 && !(upOrDown2)) {
+            guy1.y += -1
+            guy2.y += 1
+        } else if (upOrDown2 && !(upOrDown1)) {
+            guy1.y += 1
+            guy2.y += -1
+        }
+    }
     onGround1 = true
     onGround2 = true
 })
@@ -856,13 +865,28 @@ check2Player = false
 startscreenFinished = false
 gameBegun = false
 let cameraX = 80
-/**
- * upOrDown
- * 
- * Up = False
- * 
- * Down = True
- */
+game.onUpdate(function () {
+    if (gameBegun && check2Player) {
+        if (guy2.x > guy1.x) {
+            scene.cameraFollowSprite(guy2)
+        } else if (guy2.x < guy1.x) {
+            scene.cameraFollowSprite(guy1)
+        } else {
+            scene.centerCameraAt(cameraX, 72)
+            cameraX += 1
+        }
+        if (scene.cameraProperty(CameraProperty.X) - guy1.x > 100) {
+            guy1.destroy(effects.disintegrate, 200)
+            p2Win = true
+        } else if (scene.cameraProperty(CameraProperty.X) - guy2.x > 100) {
+            guy2.destroy(effects.disintegrate, 200)
+            p1Win = true
+        }
+    }
+    if (!(check2Player)) {
+        scene.cameraFollowSprite(guy1)
+    }
+})
 game.onUpdate(function () {
     if (startscreenFinished && (!(gameBegun) && !(_2startscreenFinished))) {
         createMap()
@@ -879,21 +903,6 @@ game.onUpdate(function () {
             game.splash("Blue -> LeftArrow")
             info.startCountdown(5)
         }
-    }
-})
-game.onUpdate(function () {
-    if (gameBegun && check2Player) {
-        if (guy2.x > guy1.x) {
-            scene.cameraFollowSprite(guy2)
-        } else if (guy2.x < guy1.x) {
-            scene.cameraFollowSprite(guy1)
-        } else {
-            scene.centerCameraAt(cameraX, 72)
-            cameraX += 1
-        }
-    }
-    if (!(check2Player)) {
-        scene.cameraFollowSprite(guy1)
     }
 })
 game.onUpdate(function () {
