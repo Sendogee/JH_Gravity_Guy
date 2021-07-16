@@ -1,4 +1,15 @@
 function createMap () {
+    scene.setTileMap(img`
+        2222222222222222222222222222222222222222222222222222222222222222
+        8888888fff8f888888f888ffff8888888fffffffff88ffff8888888888888888
+        8ffff8888888fff88f88888888f8f8f8f8888888888888888888888888888fff
+        88888888888888888888f888888888888888888888888888fffff8888fff8883
+        8ffff88888888888888f8888888888888fffffffff8888888888888888888883
+        88888888888888888888f88888888888888888888888888888888ffff8888fff
+        8ffff8888888fff88f88888888f8f8f8f8888888888888888888888888888888
+        8888888fff8f888888f888ffff8888888fffffffff8888888888888888888888
+        2222222222222222222222222222222222222222222222222222222222222222
+        `)
     scene.setBackgroundImage(img`
         9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
         9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -121,16 +132,51 @@ function createMap () {
         7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
         7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
         `)
-    tiles.setTilemap(tilemap`level4`)
+    scene.setTile(15, img`
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        `, true)
+    scene.setTile(8, img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, false)
 }
 function createGuy2 () {
     guy2 = sprites.create(assets.image`guy2`, SpriteKind.Player)
     guy2yv = 100
-    tiles.placeOnRandomTile(guy2, assets.tile`myTile3`)
+    tiles.placeOnTile(guy2, tiles.getTileLocation(1, 5))
     guy2.vy = guy2yv
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(gameBegun)) {
+    if (!(gameBegun) && !(_2startscreenFinished)) {
         startscreenFinished = true
     }
 })
@@ -154,10 +200,9 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function createGuy1 () {
-    startscreenFinished = false
     guy1 = sprites.create(assets.image`guy1`, SpriteKind.Player)
     scene.cameraFollowSprite(guy1)
-    tiles.placeOnRandomTile(guy1, assets.tile`myTile`)
+    tiles.placeOnTile(guy1, tiles.getTileLocation(1, 3))
     guy1yv = 100
     guy1.vy = guy1yv
 }
@@ -330,9 +375,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherS
     sprite.vy = 0
     otherSprite.vy = 0
 })
-let _2startscreenFinished = false
 let guy1: Sprite = null
 let guy1yv = 0
+let _2startscreenFinished = false
 let guy2yv = 0
 let guy2: Sprite = null
 let gameBegun = false
@@ -475,7 +520,6 @@ game.onUpdate(function () {
         button1.destroy()
         button2.destroy()
         createGuy1()
-        startscreenFinished = true
         _2startscreenFinished = true
         if (check2Player) {
             createGuy2()
@@ -489,6 +533,9 @@ game.onUpdate(function () {
 })
 game.onUpdate(function () {
     if (gameBegun) {
-    	
+        guy1.vx = 50
+        if (check2Player) {
+            guy2.vx = 50
+        }
     }
 })
