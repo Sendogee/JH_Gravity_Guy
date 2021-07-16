@@ -171,7 +171,7 @@ function createMap () {
 }
 function createGuy2 () {
     guy2 = sprites.create(assets.image`guy2`, SpriteKind.Player)
-    guy2yv = 100
+    guy2yv = 50
     tiles.placeOnTile(guy2, tiles.getTileLocation(1, 5))
     guy2.vy = guy2yv
 }
@@ -194,16 +194,17 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         button1.setImage(assets.image`PLAYERBUTTON1pressed`)
         button2.setImage(assets.image`PLAYER2BUTTON`)
         check2Player = false
-    } else if (gameBegun) {
+    } else if (gameBegun && onGround1) {
         guy1yv = guy1yv * -1
         guy1.vy = guy1yv
+        onGround1 = false
     }
 })
 function createGuy1 () {
     guy1 = sprites.create(assets.image`guy1`, SpriteKind.Player)
     scene.cameraFollowSprite(guy1)
     tiles.placeOnTile(guy1, tiles.getTileLocation(1, 3))
-    guy1yv = 100
+    guy1yv = 50
     guy1.vy = guy1yv
 }
 info.onCountdownEnd(function () {
@@ -282,7 +283,7 @@ info.onCountdownEnd(function () {
     100,
     true
     )
-    guy1.vx = 50
+    onGround1 = true
     if (check2Player) {
         animation.runImageAnimation(
         guy2,
@@ -358,7 +359,7 @@ info.onCountdownEnd(function () {
         100,
         true
         )
-        guy2.vx = 50
+        onGround2 = true
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -366,17 +367,22 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         button1.setImage(assets.image`PLAYERBUTTON1`)
         button2.setImage(assets.image`PLAYER2BUTTONpressed`)
         check2Player = true
-    } else if (gameBegun && check2Player) {
+    } else if (gameBegun && (check2Player && onGround2)) {
         guy2yv = guy2yv * -1
         guy2.vy = guy2yv
+        onGround2 = false
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
     sprite.vy = 0
     otherSprite.vy = 0
+    onGround1 = true
+    onGround2 = true
 })
+let onGround2 = false
 let guy1: Sprite = null
 let guy1yv = 0
+let onGround1 = false
 let _2startscreenFinished = false
 let guy2yv = 0
 let guy2: Sprite = null
@@ -537,5 +543,13 @@ game.onUpdate(function () {
         if (check2Player) {
             guy2.vx = 50
         }
+    }
+})
+game.onUpdate(function () {
+    if (scene.tileHitFrom(guy1, CollisionDirection.Bottom) == 15 || scene.tileHitFrom(guy1, CollisionDirection.Top) == 15) {
+        onGround1 = true
+    }
+    if (check2Player && (scene.tileHitFrom(guy1, CollisionDirection.Bottom) == 15 || scene.tileHitFrom(guy1, CollisionDirection.Top) == 15)) {
+        onGround2 = true
     }
 })
