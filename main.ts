@@ -1,6 +1,6 @@
 function createMap () {
     scene.setTileMap(img`
-        2222222222222222222222222222222222222222222222222222222222222222
+        22222222222222222222f222222f2f2f22222222222222222222222222222222
         8888888fff8f888888f888ffff8888888fffffffff88ffff8888888888888888
         8ffff8888888fff88f88888888f8f8f8f8888888888888888888888888888fff
         88888888888888888888f888888888888888888888888888fffff8888fff8883
@@ -8,7 +8,7 @@ function createMap () {
         88888888888888888888f88888888888888888888888888888888ffff8888fff
         8ffff8888888fff88f88888888f8f8f8f8888888888888888888888888888888
         8888888fff8f888888f888ffff8888888fffffffff8888888888888888888888
-        2222222222222222222222222222222222222222222222222222222222222222
+        22222222222222222222f222222f2f2f22222222222222222222222222222222
         `)
     scene.setBackgroundImage(img`
         9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -195,7 +195,13 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         button2.setImage(assets.image`PLAYER2BUTTON`)
         check2Player = false
     } else if (gameBegun && onGround1) {
-        guy1yv = guy1yv * -1
+        if (upOrDown1) {
+            guy1yv = guy1yv * -1
+            upOrDown1 = false
+        } else {
+            guy1yv = guy1yv * -1
+            upOrDown1 = true
+        }
         guy1.vy = guy1yv
         onGround1 = false
     }
@@ -284,6 +290,7 @@ info.onCountdownEnd(function () {
     true
     )
     onGround1 = true
+    upOrDown1 = true
     if (check2Player) {
         animation.runImageAnimation(
         guy2,
@@ -360,6 +367,7 @@ info.onCountdownEnd(function () {
         true
         )
         onGround2 = true
+        upOrDown2 = true
     }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -368,7 +376,13 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         button2.setImage(assets.image`PLAYER2BUTTONpressed`)
         check2Player = true
     } else if (gameBegun && (check2Player && onGround2)) {
-        guy2yv = guy2yv * -1
+        if (upOrDown2) {
+            guy2yv = guy2yv * -1
+            upOrDown2 = false
+        } else {
+            guy2yv = guy2yv * -1
+            upOrDown2 = true
+        }
         guy2.vy = guy2yv
         onGround2 = false
     }
@@ -379,9 +393,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherS
     onGround1 = true
     onGround2 = true
 })
+let upOrDown2 = false
 let onGround2 = false
 let guy1: Sprite = null
 let guy1yv = 0
+let upOrDown1 = false
 let onGround1 = false
 let _2startscreenFinished = false
 let guy2yv = 0
@@ -520,6 +536,13 @@ button2.setPosition(100, 100)
 check2Player = false
 startscreenFinished = false
 gameBegun = false
+/**
+ * upOrDown
+ * 
+ * Up = False
+ * 
+ * Down = True
+ */
 game.onUpdate(function () {
     if (startscreenFinished && (!(gameBegun) && !(_2startscreenFinished))) {
         createMap()
@@ -534,6 +557,22 @@ game.onUpdate(function () {
         } else {
             game.splash("Blue -> LeftArrow")
             info.startCountdown(5)
+        }
+    }
+})
+game.onUpdate(function () {
+    if (gameBegun) {
+        if (upOrDown1) {
+            guy1.vy = 50
+        } else {
+            guy1.vy = -50
+        }
+        if (check2Player) {
+            if (upOrDown2) {
+                guy2.vy = 50
+            } else {
+                guy2.vy = -50
+            }
         }
     }
 })
