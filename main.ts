@@ -168,6 +168,24 @@ function createMap () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, false)
+    scene.setTile(3, img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, true)
 }
 function createGuy2 () {
     guy2 = sprites.create(assets.image`guy2`, SpriteKind.Player)
@@ -692,6 +710,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherS
     onGround1 = true
     onGround2 = true
 })
+let p1Win = false
+let p2Win = false
 let upOrDown2 = false
 let onGround2 = false
 let guy1: Sprite = null
@@ -904,10 +924,12 @@ game.onUpdate(function () {
     if (gameBegun) {
         if (guy1.y < 9 || guy1.y > 135) {
             guy1.destroy(effects.disintegrate, 200)
+            p2Win = true
         }
         if (check2Player) {
             if (guy2.y < 9 || guy2.y > 135) {
                 guy2.destroy(effects.disintegrate, 200)
+                p2Win = true
             }
         }
     }
@@ -916,7 +938,30 @@ game.onUpdate(function () {
     if (scene.tileHitFrom(guy1, CollisionDirection.Bottom) == 15 || scene.tileHitFrom(guy1, CollisionDirection.Top) == 15) {
         onGround1 = true
     }
-    if (check2Player && (scene.tileHitFrom(guy1, CollisionDirection.Bottom) == 15 || scene.tileHitFrom(guy1, CollisionDirection.Top) == 15)) {
+    if (check2Player && (scene.tileHitFrom(guy2, CollisionDirection.Bottom) == 15 || scene.tileHitFrom(guy2, CollisionDirection.Top) == 15)) {
         onGround2 = true
+    }
+    if (scene.tileHitFrom(guy1, CollisionDirection.Right) == 3) {
+        if (check2Player) {
+            guy2.destroy(effects.disintegrate, 200)
+        }
+        p1Win = true
+    }
+    if (scene.tileHitFrom(guy2, CollisionDirection.Right) == 3) {
+        guy1.destroy(effects.disintegrate, 200)
+        p2Win = true
+    }
+})
+game.onUpdate(function () {
+    if (p1Win) {
+        game.splash("Player 1 Wins!")
+        game.over(true)
+    }
+    if (p2Win) {
+        if (check2Player) {
+            game.splash("Player 2 Wins!")
+            game.over(true)
+        }
+        game.over(false)
     }
 })
